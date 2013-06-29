@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Convertidor de Sistemas de Refenrencia</title>
+</head>
+<body>
+Entrada: <br/>
+Longitud: <input type="text" id="entradaX" value="495609.69832"><br/>
+Latitud: <input type="text" id="entradaY" value="4624136.85418"><br/>
+<br/>
+Salida:
+Longitud: <input type="text" id="salidaX" value=""><br/>
+Latitud: <input type="text" id="salidaY" value=""><br/>
+<br/>
+<input type="button" value="Calcula" onclick="conviertePunto();">
+<script type="text/javascript" src="/proj4js/lib/proj4js-compressed.js"></script>
+<script type="text/javascript" src="/proj4js/lib/defs/EPSG23031.js"></script>
+<script type="text/javascript">
+function conviertePunto(){
+    //Definimos los sistemas de referencia de entrada y salida
+    var epsgEntrada = new Proj4js.Proj("EPSG:23031");
+    var epsgSalida = new Proj4js.Proj("EPSG:4326");
+    
+    //obtenemos el valor de entrada del punto
+    var coordenadaX = parseFloat(document.getElementById("entradaX").value);
+    var coordenadaY = parseFloat(document.getElementById("entradaY").value);
+    
+    // transformamos las coordenadas del punto de entrada
+    var pEntrada = new Proj4js.Point(coordenadaX,coordenadaY);
+    var pSalida = Proj4js.transform(epsgEntrada, epsgSalida, pEntrada);
+    
+    //mostramos el resultado en los campos de salida
+    document.getElementById("salidaX").value = pSalida.x;
+    document.getElementById("salidaY").value = pSalida.y;
+}
+</script>
+
+</body>
+</html>
