@@ -1,5 +1,6 @@
 var map;
-OpenLayers.ProxyHost = "/proxy/proxy.php?url=";
+//OpenLayers.ProxyHost = "/proxy/proxy.php?url=";
+OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 function init() {
     // allow testing of specific renderers via "?renderer=Canvas", etc
