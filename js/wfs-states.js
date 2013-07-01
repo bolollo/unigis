@@ -1,5 +1,5 @@
 var map;
-//OpenLayers.ProxyHost = "/proxy/proxy.php?url=";
+//OpenLayers.ProxyHost = "/proxy/proxy_2.php?url=";
 OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 
 function init() {
