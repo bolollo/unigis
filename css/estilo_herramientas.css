@@ -1,0 +1,46 @@
+#controlDiv{
+    position:absolute;
+    top: 10px;
+    left: 510px;
+    width: 32px;
+    height: 32px;
+    background-image: url("../img/location.png");
+    border: 1px solid black;
+}
+
+
+/*Estilo herramienta arrastrar inactiva*/
+.olControlNavToolbar .olControlNavigationItemInactive {
+	width: 32px;
+    height: 32px;
+    border: 1px solid black;
+    background-image: url("../img/navigation_off.png");
+    background-position: 0px 0px;
+}
+
+/*Estilo herramienta arrastrar activa*/
+.olControlNavToolbar .olControlNavigationItemActive {
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+    background-image: url("../img/navigation_on.png");
+    background-position: 0px 0px;
+}
+
+/*Estilo herramienta zoom inactiva*/
+.olControlNavToolbar .olControlZoomBoxItemInactive {
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+    background-image:url("../img/zoom_off.png");
+    background-position: 0px 0px;
+}
+
+/*Estilo herramienta zoom activa*/
+.olControlNavToolbar .olControlZoomBoxItemActive {
+    width: 32px;
+    height: 32px;
+    border: 1px solid black;
+    background-image:url("../img/zoom_on.png");
+    background-position: 0px 0px;
+}

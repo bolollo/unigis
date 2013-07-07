@@ -1,0 +1,43 @@
+/*Estilos de la barra de herramientas*/
+.olControlPanel div { 
+  display:block;
+  width:  32px;
+  height: 32px;
+  margin: 5px;
+  background-color:red;
+}
+
+.olControlPanel .olControlNavigationItemActive { 
+  background-color: blue;
+  background-image: url("../img/navigation_on.png");
+}
+
+.olControlPanel .olControlNavigationItemInactive { 
+  background-color: orange;
+  background-image: url("../img/navigation_off.png");
+}
+
+.olControlPanel .olControlZoomBoxItemInactive { 
+  background-color: orange;
+  background-image: url("../img/zoom_off.png");
+}
+
+.olControlPanel .olControlZoomBoxItemActive { 
+  background-color: blue;
+  background-image: url("../img/zoom_on.png");
+}
+
+.olControlPanel .olControlZoomToMaxExtentItemInactive {
+  background-color: orange;
+  background-image: url("../img/zoom_world.png");
+}
+
+.olControlPanel .controlClickItemActive{
+  background-color: blue;
+  background-image: url("../img/location_on.png");
+}
+
+.olControlPanel .controlClickItemInactive{
+  background-color: orange;
+  background-image: url("../img/location_off.png");
+}
