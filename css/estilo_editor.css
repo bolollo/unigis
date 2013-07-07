@@ -1,0 +1,16 @@
+.olControlEditingToolbar .olControlModifyFeatureItemInactive { 
+    background-position: -1px -1px ;                                                                   
+}
+
+.olControlEditingToolbar .olControlModifyFeatureItemActive { 
+    background-position: -1px -24px ;                                                                   
+}
+
+.olControlEditingToolbar .cambiaColorItemActive{
+    background-image:url("../img/color_on.png");
+}
+
+.olControlEditingToolbar .cambiaColorItemInactive{
+    background-image:url("../img/color_off.png");
+}
+
