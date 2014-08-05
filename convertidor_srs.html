@@ -9,26 +9,32 @@ Entrada: <br/>
 Longitud: <input type="text" id="entradaX" value="495609.69832"><br/>
 Latitud: <input type="text" id="entradaY" value="4624136.85418"><br/>
 <br/>
-Salida:
+Salida: 
 Longitud: <input type="text" id="salidaX" value=""><br/>
 Latitud: <input type="text" id="salidaY" value=""><br/>
 <br/>
 <input type="button" value="Calcula" onclick="conviertePunto();">
-<script type="text/javascript" src="/proj4js/lib/proj4js-compressed.js"></script>
-<script type="text/javascript" src="/proj4js/lib/defs/EPSG23031.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js"></script>
+<script type="text/javascript" src="proj4js/defs.js"></script>
 <script type="text/javascript">
 function conviertePunto(){
     //Definimos los sistemas de referencia de entrada y salida
-    var epsgEntrada = new Proj4js.Proj("EPSG:23031");
-    var epsgSalida = new Proj4js.Proj("EPSG:4326");
+    var epsgEntrada = proj4("EPSG:23030");
+    var epsgSalida = proj4("EPSG:4326");
+    console.debug(epsgEntrada);
+    console.debug(epsgSalida);
     
     //obtenemos el valor de entrada del punto
     var coordenadaX = parseFloat(document.getElementById("entradaX").value);
     var coordenadaY = parseFloat(document.getElementById("entradaY").value);
     
+    // creamos el punto de entrada con los valores del formulario
+    var pEntrada = proj4.toPoint([coordenadaX,coordenadaY]);
+    console.debug(pEntrada);
+ 
     // transformamos las coordenadas del punto de entrada
-    var pEntrada = new Proj4js.Point(coordenadaX,coordenadaY);
-    var pSalida = Proj4js.transform(epsgEntrada, epsgSalida, pEntrada);
+    var pSalida = proj4(epsgEntrada, epsgSalida, pEntrada);
+    console.debug(pSalida);
     
     //mostramos el resultado en los campos de salida
     document.getElementById("salidaX").value = pSalida.x;
