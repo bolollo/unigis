@@ -21,12 +21,14 @@ var icc = L.tileLayer.wms("http://geoserveis.icc.cat/icc_mapesbase/wms/service?"
     attribution: "Institut Cartogràfic y Geològic de Catalunya"
 });
 
+var parques = L.geoJson(parquesjson, {
+    onEachFeature: agregarPopup
+}).addTo(map);
 
 L.control.scale({
 	position: 'topright',
 	imperial: true
 }).addTo(map);
-
 
 var baseMaps = {
     "Base de OpenStreetMap": osm,
@@ -35,6 +37,11 @@ var baseMaps = {
 
 var overlays = {
 	"Topo ICGC": icc,
+	"Parques": parques
 };
 
 L.control.layers(baseMaps,overlays).addTo(map);
+
+function agregarPopup(feature, layer) {
+	layer.bindPopup(feature.properties.nombre);
+}
