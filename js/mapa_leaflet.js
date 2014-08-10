@@ -1,7 +1,10 @@
+//mapa
 var map = L.map('map',{
 	center: [41.39742, 2.16328],
 	zoom: 13
 });
+
+//capas
 
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18,
@@ -25,6 +28,26 @@ var parques = L.geoJson(parquesjson, {
     onEachFeature: agregarPopup
 }).addTo(map);
 
+
+var estiloCirculosNaranja = {
+    radius: 8,
+    fillColor: "#ff7800",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
+var bibliotecas = L.geoJson(null, {
+	pointToLayer: function (feature, latlng) {
+		 return L.circleMarker(latlng, estiloCirculosNaranja);
+	}
+});
+
+omnivore.kml('datos/bibliotecas.kml', null, bibliotecas).addTo(map);
+
+//controles
+
 L.control.scale({
 	position: 'topright',
 	imperial: true
@@ -41,6 +64,8 @@ var overlays = {
 };
 
 L.control.layers(baseMaps,overlays).addTo(map);
+
+//funciones
 
 function agregarPopup(feature, layer) {
 	layer.bindPopup(feature.properties.nombre);
