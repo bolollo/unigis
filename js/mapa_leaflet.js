@@ -4,6 +4,11 @@ var map = L.map('map',{
 	zoom: 13
 });
 
+map.on('draw:created', function (evento) {
+	var layer = evento.layer;
+	capaEdicion.addLayer(layer);
+});
+
 //capas
 
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -46,6 +51,8 @@ var bibliotecas = L.geoJson(null, {
 
 omnivore.kml('datos/bibliotecas.kml', null, bibliotecas).addTo(map);
 
+var capaEdicion = new L.FeatureGroup().addTo(map);
+
 //controles
 
 L.control.scale({
@@ -64,6 +71,13 @@ var overlays = {
 };
 
 L.control.layers(baseMaps,overlays).addTo(map);
+
+var drawControl = new L.Control.Draw({
+    edit: {
+        featureGroup: capaEdicion
+    }
+});
+map.addControl(drawControl);
 
 //funciones
 
