@@ -56,7 +56,6 @@ function init() {
 
 	//agregamos el control al mapa
 	map.addControl(controlClick);
-	
 };
 
 function activaClick(){
