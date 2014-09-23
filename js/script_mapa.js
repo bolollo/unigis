@@ -4,7 +4,7 @@ var map;
 function init() {
 	//Asigamos la ruta para el archivo Proxy
 	OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
-	//OpenLayers.ProxyHost = "/proxy/proxy_1.php?url=";
+	//OpenLayers.ProxyHost = "/proxy/proxy.php?url=";
 
 
 	//Sobrescribir el método para manejar multiples SRS.
@@ -12,14 +12,16 @@ function init() {
 		var projectionCode = this.map.getProjection();
 		if (this.params.SRS){
 			if (this.params.SRS != projectionCode){
-				var point1 = new OpenLayers.LonLat(newParams.BBOX[0], newParams.BBOX[1]);
-				point1 = point1.transform(new OpenLayers.Projection(projectionCode), new OpenLayers.Projection(this.params.SRS));
-				var point2 = new OpenLayers.LonLat(newParams.BBOX[2], newParams.BBOX[3]);
-				point2 = point2.transform(new OpenLayers.Projection(projectionCode), new OpenLayers.Projection(this.params.SRS));
-				newParams.BBOX[0] = point1.lon;
-				newParams.BBOX[1] = point1.lat;
-				newParams.BBOX[2] = point2.lon;
-				newParams.BBOX[3] = point2.lat;
+				var epsgEntrada = proj4(projectionCode);
+			    var epsgSalida = proj4(this.params.SRS);
+				
+			    var point1 = proj4(epsgEntrada, epsgSalida, [newParams.BBOX[0], newParams.BBOX[1]]);
+			    var point2 = proj4(epsgEntrada, epsgSalida, [newParams.BBOX[2], newParams.BBOX[3]]);
+				console.debug(point2);
+				newParams.BBOX[0] = point1[0];
+				newParams.BBOX[1] = point1[1];
+				newParams.BBOX[2] = point2[0];
+				newParams.BBOX[3] = point2[1];
 			}else{
 				this.params.SRS = (projectionCode == "none") ? null : projectionCode;
 			}
@@ -29,12 +31,11 @@ function init() {
 		return OpenLayers.Layer.Grid.prototype.getFullRequestString.apply(this, arguments);
 	};
 
-
     var options = {
         projection: new OpenLayers.Projection("EPSG:4326"),
         units: "degrees",
         numZoomLevels: 10,
-        maxExtent: new OpenLayers.Bounds(-90, 0, 10, 60)
+		maxExtent: new OpenLayers.Bounds(-90, 0, 10, 60)
     };
 
     //Creamos un nuevo objeto map en el div con el id = map
@@ -60,7 +61,7 @@ function init() {
 		"http://shagrat.icc.es/lizardtech/iserv/ows?", 
 			{layers: 'orto5m', srs: 'EPSG:23031', format:'image/png', 
 		transparent:'true', exceptions:"application/vnd.ogc.se_xml"},
-			{'isBaseLayer':false, 'displayInLayerSwitcher':true, numZoomLevels: 22}
+			{'isBaseLayer':false, 'displayInLayerSwitcher':true}
 	);
 	map.addLayer(orto5);
 	
@@ -100,7 +101,7 @@ function init() {
 	map.addLayer(wfs);
 
 	//Creamos el GeoRSS
-	var geoRss = new OpenLayers.Layer.GeoRSS("RSS", "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml");
+	var geoRss = new OpenLayers.Layer.GeoRSS("RSS", "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.atom");
 	map.addLayer(geoRss);
 	
 	//creamos el GeoJSON
@@ -122,4 +123,5 @@ function init() {
 	
     //Hacemos un zoom a la extensión máxima del mapa.
     map.zoomToMaxExtent();
+	
 }
