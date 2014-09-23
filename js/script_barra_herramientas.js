@@ -1,6 +1,5 @@
 //Definimos la variable map
 var map;
-
 var controlClick;
 
 function init() {
@@ -76,8 +75,5 @@ function init() {
 	]);
 	
 	//agregamos el panel al mapa
-	map.addControl(barraHerramientas);
-
-
-    
+	map.addControl(barraHerramientas);  
 };
