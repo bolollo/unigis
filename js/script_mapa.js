@@ -6,7 +6,6 @@ function init() {
 	OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
 	//OpenLayers.ProxyHost = "/proxy/proxy.php?url=";
 
-
 	//Sobrescribir el método para manejar multiples SRS.
 	OpenLayers.Layer.WMS.prototype.getFullRequestString = function(newParams, altUrl) {
 		var projectionCode = this.map.getProjection();
@@ -17,7 +16,6 @@ function init() {
 				
 			    var point1 = proj4(epsgEntrada, epsgSalida, [newParams.BBOX[0], newParams.BBOX[1]]);
 			    var point2 = proj4(epsgEntrada, epsgSalida, [newParams.BBOX[2], newParams.BBOX[3]]);
-				console.debug(point2);
 				newParams.BBOX[0] = point1[0];
 				newParams.BBOX[1] = point1[1];
 				newParams.BBOX[2] = point2[0];
@@ -61,7 +59,7 @@ function init() {
 		"http://shagrat.icc.es/lizardtech/iserv/ows?", 
 			{layers: 'orto5m', srs: 'EPSG:23031', format:'image/png', 
 		transparent:'true', exceptions:"application/vnd.ogc.se_xml"},
-			{'isBaseLayer':false, 'displayInLayerSwitcher':true}
+			{'isBaseLayer':false, 'displayInLayerSwitcher':true, 'visibility': false}
 	);
 	map.addLayer(orto5);
 	
